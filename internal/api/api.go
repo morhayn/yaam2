@@ -14,7 +14,7 @@ func basicAuth(r *http.Request) error {
 	if ok {
 		if !(u == os.Getenv("YAAM_USER") && p == os.Getenv("YAAM_PASS")) {
 			// return fmt.Errorf("auth failed")
-			return nil
+			return nil //off Auth
 		}
 	} else {
 		// return fmt.Errorf("request is NOT using basic authentication")

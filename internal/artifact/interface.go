@@ -5,9 +5,12 @@ package artifact
 // Preserve downloads an artifact from an external repository and writes it to
 // disk.
 type Artifacter interface {
-	Preserve(urlStrings ...string) error
-	Publish() error
-	Read() error
+	Preserver
+	Publisher
+	Reader
+	// Preserve(urlStrings ...string) error
+	// Publish() error
+	// Read() error
 	// Unify(name string) error
 }
 type Preserver interface {

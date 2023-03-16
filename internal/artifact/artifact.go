@@ -133,10 +133,10 @@ func RepoInConfigFile(urlString, repo string, configRepos map[string]project.Rep
 	if !ok {
 		return PublicRepository{}, errors.New(fmt.Sprintf("Not repositori in config file %s", repo))
 	}
-	url := r.Url
-	if url == "" {
+	if r.Url == "" {
 		return PublicRepository{}, errors.New(fmt.Sprintf("Url empty in config file %s", repo))
 	}
+	url := CloseUrlRepo(r.Url)
 	user := r.User
 	if user == "" {
 		log.Tracef("user: '%s'", user)
