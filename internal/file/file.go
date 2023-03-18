@@ -95,7 +95,7 @@ func EmptyFile(f string) (emptyFile bool) {
 	if fileSize == 0 {
 		log.Errorf("file: '%s' size is 0", f)
 		log.Warnf(WaitMsg, RetryDuration)
-		time.Sleep(RetryDuration)
+		// time.Sleep(RetryDuration)
 		emptyFile = true
 	}
 

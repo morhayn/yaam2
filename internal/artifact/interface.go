@@ -1,18 +1,15 @@
 package artifact
 
-// Preserver is the interface that wraps the basic Preserve method.
-//
-// Preserve downloads an artifact from an external repository and writes it to
-// disk.
 type Artifacter interface {
 	Preserver
 	Publisher
 	Reader
-	// Preserve(urlStrings ...string) error
-	// Publish() error
-	// Read() error
-	// Unify(name string) error
 }
+
+// Preserver is the interface that wraps the basic Preserve method.
+//
+// Preserve downloads an artifact from an external repository and writes it to
+// disk.
 type Preserver interface {
 	Preserve(urlStrings ...string) error
 }
