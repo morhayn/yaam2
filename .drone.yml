@@ -1,0 +1,50 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build go
+  image: golang:1.19.6
+  commands:
+  - go test ./... 
+  - CGO_ENABLED=0 go build -o yaam2 main.go
+  when:
+    event:
+    - push
+    - pull_request
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    dockerfile: Docker_K8s/Dockerfile_ci
+    username:
+      from_secret: registry_user
+    password: 
+      from_secret: registry_pass
+    repo: localshot/repository
+    tags:
+    - latest
+    - main
+    ssh-agent-key:
+      from_secret: private_key
+  when:
+    event:
+    - push
+    - pull_request
+
+steps:
+- name: artifactory
+  image: athieriot/drone-artifactory
+  url:
+  username:
+    from_secret: artifact_user
+  password:
+    from_secret: artifact_pass
+  pom: pom.xml
+  files:
+  - yaam2
+  when:
+    event:
+    - push
+    - pull_request

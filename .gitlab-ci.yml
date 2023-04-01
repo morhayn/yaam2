@@ -1,0 +1,27 @@
+stages:
+  - golang
+  - image
+
+golang:
+  stage: golang
+  image: golang:1.19.6
+  script: 
+    - go test ./...
+    - CGO_ENABLED=0 go build -o yaam2 main.go
+  artifacts:
+    path:
+      - yaam2
+    expare_in: 1 day
+
+create image:
+  stage: image
+  image: docker:latest
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  dependencies:
+    - build
+  script:
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} -f ./Docker_K8s/Dockerfile_ci .
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:latest

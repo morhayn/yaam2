@@ -20,17 +20,3 @@ caches:
   npm:
     npmjs:
       url: https://registry.npmjs.org/
-groups:
-  maven:
-    hello:
-      - maven/releases
-      - maven/3rdparty-maven
-      - maven/3rdparty-maven-gradle-plugins
-      - maven/3rdparty-maven-spring
-publications:
-  generic:
-    - something
-  maven:
-    - releases
-  npm:
-    - 3rdparty-npm

@@ -1,0 +1,10 @@
+# Start fresh from a smaller image
+FROM alpine:3.9 
+
+COPY yaam2 /app/
+# COPY example.yaml /app/yaam2.yaml
+# This container exposes port 3000 to the outside world
+EXPOSE 25213
+# Run the binary program produced by `go install`
+WORKDIR /app
+CMD ["yaam2"]

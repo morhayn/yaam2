@@ -15,8 +15,9 @@ RUN CGO_ENABLED=0 go build -o ./out/yaam2 main.go
 FROM alpine:3.9 
 
 COPY --from=build_base /tmp/yaam2/out/yaam2 /app/
-COPY example.yaml /app/yaam2.yaml
+# COPY example.yaml /app/yaam2.yaml
 # This container exposes port 3000 to the outside world
 EXPOSE 25213
 # Run the binary program produced by `go install`
-CMD ["/app/yaam2"]
+WORKDIR /app
+CMD ["yaam2"]
