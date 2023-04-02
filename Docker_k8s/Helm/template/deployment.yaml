@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: yaam
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.registry }}/{{ .Values.image }}:{{ .Values.tag }}
+        ports:
+        - containerPort: 25213
+        volumeMounts:
+        - name: vol-config
+          mountPath: "/app/yaam2.conf"
+          subPath: yaam2.conf
+          readOnly: true
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+      volumes:
+        - name: vol-config
+          configMap:
+            name: yaam-config
+

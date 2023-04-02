@@ -1,0 +1,13 @@
+
+name: "yaam2"
+registry: "docker.io"
+image: yaam2
+tag: 0.1.0
+port: 25213
+resources:
+  requests:
+    memory: 1024Mi
+    cpu: 250m
+  limits:
+    memory: 1024Mi
+    cpu: 1000m
