@@ -1,5 +1,6 @@
 
 name: "yaam2"
+namespace: "yaam"
 registry: "docker.io"
 image: yaam2
 tag: 0.1.0

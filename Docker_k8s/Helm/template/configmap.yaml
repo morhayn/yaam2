@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: yaam-config
-  namespace: yaam 
+  namespace: {{ .Values.namespace }}
 data:
   yaam2.conf: |    
     port: 25213
